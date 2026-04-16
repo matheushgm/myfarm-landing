@@ -237,6 +237,7 @@ nav.topnav {
   cursor: pointer; width: 100%; font-family: inherit; transition: background .2s; margin-top: 4px;
 }
 .hf-submit:hover { background: var(--orange-dark); }
+.hero-mobile-cta-hint { display: none; }
 
 /* ─── SECTION TITLE PATTERN ─── */
 .sec-label {
@@ -483,6 +484,12 @@ footer a:hover { color: #fff; }
     grid-template-areas: "top" "form" "bottom";
     gap: 24px;
   }
+  .hero-mobile-cta-hint {
+    display: block;
+    font-size: .9rem; font-weight: 500;
+    color: var(--text-body); margin-top: 12px;
+    text-align: center; line-height: 1.5;
+  }
   .hero h1, .hero-subh, .hero-proof { text-align: center; }
   .hero-proof   { justify-content: center; }
   .hero .hero-list li { justify-content: center; }
@@ -529,6 +536,7 @@ footer a:hover { color: #fff; }
           Pare de perder dinheiro na sua fazenda e tenha controle da sua produção.<br/>
           <span style="color:var(--teal);font-size:0.67em;">O MyFarm coloca você no comando da sua operação.</span>
         </h1>
+        <p class="hero-mobile-cta-hint">Preencha o formulário e saiba como o MyFarm vai transformar a gestão da sua fazenda!</p>
       </div>
 
       <!-- Esquerda baixo: subh + pills + CTA -->
