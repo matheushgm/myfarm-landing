@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MyFarm — Software de Gestão Agrícola</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+/* ═══════════════════════════════════════════════
+   MYFARM REAL DESIGN SYSTEM
+   Extraído do site https://materiais.myfarm.com.br/software-de-gestao-new
+═══════════════════════════════════════════════ */
+:root {
+  /* Cores exatas do site */
+  --orange:        #FF7639;   /* CTA principal — bg botão primário */
+  --orange-dark:   #E65100;   /* hover do CTA */
+  --orange-hover-text: #FF7639; /* cor do texto no hover dos botões */
+  --teal:          #00938F;   /* verde-teal — destaques, títulos de cards */
+  --teal-dark:     #007370;
+  --dark-gray:     #4A4A4A;   /* fundos de textos com highlight */
+  --off-white:     #F7F7F8;   /* fundo seções alt */
+  --white:         #FFFFFF;
+  --footer-bg:     #1A1D33;   /* rodapé escuro */
+  --text-dark:     #1A1D33;
+  --text-body:     #333333;
+  --text-muted:    #555555;
+  --border:        #D3DAE4;
+
+  /* Tipografia — Neuzeit Grotesk (fallback Inter) */
+  --font: 'Neuzeit Grotesk', 'Inter', sans-serif;
+  --body-size: 1.125rem;     /* 18px */
+  --body-weight: 300;
+
+  /* Botão primário (site usa border-radius: 50px) */
+  --btn-radius: 50px;
+}
+
+/* ─── RESET ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  font-size: var(--body-size);
+  font-weight: var(--body-weight);
+  line-height: 1.55;
+  color: var(--text-body);
+  background: var(--white);
+  overflow-x: hidden;
+}
+
+/* ─── LAYOUT ─── */
+.container { max-width: 1296px; margin: 0 auto; padding: 0 32px; }
+.section    { padding: 96px 0; }
+.section-sm { padding: 64px 0; }
+.bg-offwhite { background: var(--off-white); }
+.bg-dark-gray { background: var(--dark-gray); }
+.bg-teal  { background: var(--teal); }
+.bg-white { background: var(--white); }
+
+/* ─── TIPOGRAFIA ─── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font);
+  line-height: 1.2;
+  font-weight: 700;
+}
+h1 { font-size: clamp(2.4rem, 5vw, 3.5625rem); } /* 57px */
+h2 { font-size: clamp(1.8rem, 3.5vw, 2.6875rem); } /* 43px */
+h3 { font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 400; }
+h4 { font-size: 1.5rem; font-weight: 300; }
+h5 { font-size: 1.25rem; font-weight: 700; }
+p  { margin-bottom: 1rem; }
+
+/* HIGHLIGHT CHIPS — exato do site */
+.hl-orange { background: var(--orange);   color: #fff; padding: 0 4px; }
+.hl-teal   { background: var(--teal);     color: #fff; padding: 0 4px; }
+.hl-gray   { background: var(--dark-gray);color: #fff; padding: 0 4px; }
+
+/* ─── BOTÕES — border-radius 50px, exato do site ─── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font); font-size: 1rem; font-weight: 700;
+  border-radius: var(--btn-radius);
+  padding: 20px 32px;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: background .2s, color .2s, transform .15s;
+  white-space: nowrap;
+}
+.btn:hover { transform: translateY(-2px); }
+
+/* Primário — laranja */
+.btn-primary {
+  background: var(--orange); color: #fff;
+}
+.btn-primary:hover {
+  background: var(--orange-dark);
+}
+
+/* Secundário — teal outline */
+.btn-teal-outline {
+  background: transparent; color: var(--teal);
+  border: 2px solid var(--teal);
+}
+.btn-teal-outline:hover {
+  background: transparent; color: #6854E8; border-color: #6854E8;
+}
+
+/* Branco outline */
+.btn-white-outline {
+  background: transparent; color: #fff;
+  border: 2px solid var(--teal);
+}
+.btn-white-outline:hover { color: var(--teal); }
+
+/* ─── NAV ─── */
+nav.topnav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,.97);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0;
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 72px; max-width: 1296px; margin: 0 auto; padding: 0 32px;
+}
+.logo {
+  display: flex; align-items: center; gap: 8px; text-decoration: none;
+}
+.logo img { height: 36px; width: auto; }
+.logo-text {
+  font-family: var(--font); font-size: 1.15rem; font-weight: 700;
+  color: var(--text-dark); letter-spacing: -.02em;
+}
+.logo-sub {
+  font-size: .6rem; color: #888; text-transform: uppercase;
+  letter-spacing: .1em; display: block;
+}
+.logo-icon {
+  width: 38px; height: 38px; border-radius: 8px;
+  background: var(--teal);
+  display: flex; align-items: center; justify-content: center;
+}
+.logo-icon svg { width: 20px; height: 20px; color: #fff; }
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-a {
+  font-family: var(--font); font-size: .9rem; font-weight: 400;
+  color: var(--text-body); text-decoration: none;
+  transition: color .2s;
+}
+.nav-a:hover { color: var(--teal); }
+.nav-cta { padding: 14px 24px !important; font-size: .9rem !important; }
+
+/* ─── HERO ─── */
+.hero {
+  background-image: url('https://materiais.myfarm.com.br/hubfs/Masters_Fundo_01-1.png');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 72px 0 80px;
+  min-height: 70vh;
+}
+.hero-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 64px; align-items: center;
+}
+.hero h1 {
+  font-size: clamp(2.4rem, 4.5vw, 3.5625rem);
+  line-height: 1.1; margin-bottom: 20px;
+}
+.hero .hero-list {
+  list-style: none; margin: 16px 0 28px;
+}
+.hero .hero-list li {
+  font-size: 1.1rem; color: var(--text-body); margin-bottom: 8px;
+  display: flex; align-items: center; gap: 8px;
+}
+.hero .hero-list li::before {
+  content: ''; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--teal); flex-shrink: 0;
+}
+.hero-subh {
+  font-size: 1.2rem; color: var(--text-body); font-weight: 400;
+  line-height: 1.55; margin-bottom: 28px; max-width: 560px;
+}
+.hero-proof { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
+.proof-pill {
+  display: flex; align-items: center; gap: 6px;
+  font-size: .8rem; font-weight: 600; color: var(--teal);
+  background: #E0F5F4; padding: 6px 14px; border-radius: 50px;
+}
+.proof-pill svg { width: 14px; height: 14px; }
+
+/* Hero visual — reproduz o painel verde */
+.hero-visual {
+  background: linear-gradient(145deg, #005f5c 0%, #00938F 55%, #00a89f 100%);
+  border-radius: 20px; padding: 36px;
+  display: flex; flex-direction: column; gap: 20px;
+  position: relative; overflow: hidden;
+}
+.hero-visual::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(circle at 85% 15%, rgba(255,255,255,.12) 0%, transparent 50%);
+}
+.vis-header {
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+  border-radius: 12px; padding: 14px 18px; text-align: center; position: relative;
+}
+.vis-header p { font-size: .62rem; color: rgba(255,255,255,.55); text-transform: uppercase; letter-spacing: .2em; margin: 0 0 3px; }
+.vis-header strong { color: #fff; font-size: .88rem; font-weight: 600; }
+.stats-4 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; position: relative; }
+.stat-box {
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.15);
+  border-radius: 11px; padding: 18px; text-align: center;
+}
+.stat-box .n { font-size: 2.2rem; font-weight: 800; color: #fff; letter-spacing: -.04em; line-height: 1; }
+.stat-box .n span { color: #FFD0B5; font-size: 1.2rem; }
+.stat-box .l { font-size: .6rem; color: rgba(255,255,255,.55); text-transform: uppercase; letter-spacing: .14em; margin-top: 4px; }
+.vis-chips { display: flex; flex-wrap: wrap; gap: 7px; position: relative; }
+.vis-chip {
+  background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
+  border-radius: 50px; padding: 5px 14px;
+  font-size: .68rem; color: rgba(255,255,255,.75); font-weight: 500;
+}
+
+/* ─── SECTION TITLE PATTERN ─── */
+.sec-label {
+  font-size: .875rem; font-weight: 700; color: var(--teal);
+  background: #E0F5F4; padding: 2px 10px;
+  border-radius: 50px; border: 1px solid #B0E6E4;
+  display: inline-block; margin-bottom: 16px;
+}
+.sec-title { margin-bottom: 14px; }
+.sec-intro {
+  font-size: 1rem; font-weight: 300;
+  color: var(--text-muted); line-height: 1.7;
+  max-width: 640px; margin-bottom: 44px;
+}
+
+/* ─── CARDS DOR ─── */
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+.dor-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 16px; padding: 24px;
+  transition: box-shadow .2s, transform .2s;
+}
+.dor-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,147,143,.12);
+  border-color: var(--teal);
+}
+.dor-icon {
+  width: 42px; height: 42px; border-radius: 12px;
+  background: #E0F5F4;
+  display: flex; align-items: center; justify-content: center; margin-bottom: 14px;
+}
+.dor-icon svg { width: 20px; height: 20px; color: var(--teal); }
+.dor-card p { font-size: .95rem; font-weight: 300; color: var(--text-body); line-height: 1.65; margin: 0; }
+
+/* ─── VIRADA ─── */
+.virada-box {
+  background: var(--teal); border-radius: 16px;
+  padding: 52px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 40px; flex-wrap: wrap; margin-top: 48px;
+}
+.virada-box h3 { font-size: 1.6rem; font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 12px; }
+.virada-box p  { font-size: .95rem; font-weight: 300; color: rgba(255,255,255,.8); line-height: 1.7; max-width: 560px; margin: 0; }
+
+/* ─── MÓDULOS (4 colunas) ─── */
+.mod-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 16px; padding: 24px; transition: all .2s;
+}
+.mod-card:hover {
+  border-color: var(--orange);
+  box-shadow: 0 6px 20px rgba(255,118,57,.15);
+  transform: translateY(-3px);
+}
+.mod-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: #FFE8DB;
+  display: flex; align-items: center; justify-content: center; margin-bottom: 12px;
+}
+.mod-icon svg { width: 20px; height: 20px; color: var(--orange); }
+.mod-card h4 { font-size: .95rem; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; }
+.mod-card p  { font-size: .82rem; font-weight: 300; color: var(--text-muted); line-height: 1.6; margin: 0; }
+
+/* ─── DIFERENCIAIS ─── */
+.dif-box { background: var(--dark-gray); border-radius: 16px; padding: 48px; margin-top: 32px; }
+.dif-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-top: 28px; }
+.dif-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1);
+  border-radius: 10px; padding: 14px;
+}
+.dif-item svg { width: 16px; height: 16px; color: #FFD0B5; flex-shrink: 0; margin-top: 1px; }
+.dif-item span { font-size: .82rem; font-weight: 300; color: rgba(255,255,255,.85); line-height: 1.5; }
+
+/* ─── BENEFÍCIOS (style do site real: ícone + título laranja + texto) ─── */
+.grid-6 { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; }
+.benefit-item { text-align: center; }
+.benefit-icon {
+  width: 98px; height: 98px; margin: 0 auto 16px;
+  display: flex; align-items: center; justify-content: center;
+}
+.benefit-icon img { width: 100%; height: 100%; object-fit: contain; }
+.benefit-icon-fallback {
+  width: 98px; height: 98px; border-radius: 16px;
+  background: #FFE8DB; margin: 0 auto 16px;
+  display: flex; align-items: center; justify-content: center;
+}
+.benefit-icon-fallback svg { width: 44px; height: 44px; color: var(--orange); }
+.benefit-item h5 { color: var(--orange); font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+.benefit-item p  { font-size: .9rem; font-weight: 300; color: var(--text-body); line-height: 1.65; }
+
+/* ─── STEPS ─── */
+.steps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.step-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 16px; padding: 28px; display: flex; gap: 18px; transition: all .2s;
+}
+.step-card:hover { border-color: var(--teal); box-shadow: 0 6px 20px rgba(0,147,143,.1); }
+.step-n {
+  width: 40px; height: 40px; min-width: 40px; border-radius: 50%;
+  background: var(--teal); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .85rem; font-weight: 700;
+}
+.step-card h4 { font-size: .95rem; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; }
+.step-card h4 span { color: #888; font-weight: 300; }
+.step-card p  { font-size: .88rem; font-weight: 300; color: var(--text-body); line-height: 1.68; margin: 0; }
+
+/* ─── ALIARE ─── */
+.aliare-row { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.aliare-box {
+  background: var(--teal); border-radius: 16px; padding: 40px;
+  display: flex; flex-direction: column; gap: 18px;
+}
+.ali-head { display: flex; align-items: center; gap: 14px; }
+.ali-icon { width: 52px; height: 52px; border-radius: 12px; background: rgba(255,255,255,.15); display: flex; align-items: center; justify-content: center; }
+.ali-icon svg { width: 24px; height: 24px; color: #FFD0B5; }
+.ali-head h4 { color: #fff; font-size: 1rem; font-weight: 700; margin-bottom: 2px; }
+.ali-head p  { color: rgba(255,255,255,.55); font-size: .72rem; margin: 0; }
+.ali-quote {
+  background: rgba(255,255,255,.08); border-left: 3px solid #FFD0B5;
+  border-radius: 8px; padding: 18px;
+  font-size: .92rem; font-weight: 300; color: rgba(255,255,255,.88); line-height: 1.65; font-style: italic;
+}
+.ali-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.ali-tag {
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+  border-radius: 50px; padding: 4px 14px;
+  font-size: .68rem; color: rgba(255,255,255,.75); font-weight: 400;
+}
+
+/* ─── CHECKLIST ─── */
+.check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 44px; }
+.check-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px;
+}
+.check-item svg { width: 16px; height: 16px; color: var(--teal); flex-shrink: 0; margin-top: 2px; }
+.check-item p { font-size: .85rem; font-weight: 300; color: var(--text-body); line-height: 1.55; margin: 0; }
+.check-item strong { font-weight: 700; color: var(--text-dark); }
+
+/* ─── TESTIMONIALS ─── */
+.testi-row { background: var(--teal); }
+.testi-block { padding: 48px 0; }
+.testi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.testi-half { display: flex; align-items: center; gap: 32px; }
+.testi-img { width: 160px; height: 160px; min-width: 160px; border-radius: 12px; object-fit: cover; }
+.testi-txt blockquote { font-size: 1.05rem; font-weight: 300; color: #fff; line-height: 1.65; margin-bottom: 12px; font-style: normal; }
+.testi-txt strong { color: #fff; font-size: .85rem; font-weight: 700; display: block; }
+.testi-txt em { color: rgba(255,255,255,.6); font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; font-style: normal; }
+
+/* ─── FAQ ─── */
+.faq-list { display: flex; flex-direction: column; gap: 8px; max-width: 860px; margin: 0 auto; }
+details.faq {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 16px; overflow: hidden; transition: border-color .2s;
+}
+details.faq[open] { border-color: var(--teal); }
+details.faq summary {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; padding: 20px 24px; cursor: pointer; list-style: none;
+  font-size: .95rem; font-weight: 600; color: var(--text-dark);
+}
+details.faq summary::-webkit-details-marker { display: none; }
+.faq-chev { transition: transform .3s; flex-shrink: 0; width: 20px; height: 20px; color: #999; }
+details.faq[open] .faq-chev { transform: rotate(180deg); }
+.faq-body {
+  padding: 0 24px 20px;
+  font-size: .9rem; font-weight: 300;
+  color: var(--text-body); line-height: 1.72;
+  border-top: 1px solid var(--border); padding-top: 16px; margin-top: 0;
+}
+
+/* ─── CTA FINAL ─── */
+.cta-final-row {
+  background: var(--dark-gray);
+}
+.cta-final-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 64px; align-items: center; padding: 72px 0;
+}
+.cta-final-inner h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
+.cta-final-inner h2 .hl-orange { padding: 2px 6px; }
+.cta-final-inner p  { font-size: .95rem; font-weight: 300; color: rgba(255,255,255,.75); line-height: 1.72; margin-bottom: 28px; }
+
+/* ─── RODAPÉ ─── */
+footer {
+  background: var(--orange);
+  padding: 48px 0;
+}
+.footer-inner {
+  display: grid; grid-template-columns: 1fr auto auto;
+  gap: 32px; align-items: center;
+}
+.footer-logo { display: flex; align-items: center; gap: 10px; }
+.footer-logo-icon {
+  width: 34px; height: 34px; border-radius: 7px;
+  background: rgba(255,255,255,.25);
+  display: flex; align-items: center; justify-content: center;
+}
+.footer-logo-icon svg { width: 18px; height: 18px; color: #fff; }
+.footer-logo span { color: #fff; font-weight: 700; font-size: .95rem; }
+footer p, footer a {
+  color: rgba(255,255,255,.8); font-size: .8rem; font-weight: 300;
+  text-decoration: none;
+}
+footer a:hover { color: #fff; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .hero-grid    { grid-template-columns: 1fr; gap: 40px; }
+  .grid-3       { grid-template-columns: 1fr 1fr; }
+  .grid-4       { grid-template-columns: 1fr 1fr; }
+  .grid-6       { grid-template-columns: 1fr 1fr; }
+  .dif-grid     { grid-template-columns: 1fr 1fr; }
+  .aliare-row   { grid-template-columns: 1fr; }
+  .testi-grid   { grid-template-columns: 1fr; }
+  .cta-final-inner { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .nav-links    { display: none; }
+  .grid-3       { grid-template-columns: 1fr; }
+  .grid-4       { grid-template-columns: 1fr; }
+  .grid-6       { grid-template-columns: 1fr; }
+  .steps-grid   { grid-template-columns: 1fr; }
+  .check-grid   { grid-template-columns: 1fr; }
+  .dif-grid     { grid-template-columns: 1fr 1fr; }
+  .virada-box   { flex-direction: column; }
+  .testi-half   { flex-direction: column; }
+  .footer-inner { grid-template-columns: 1fr; text-align: center; }
+  .section      { padding: 64px 0; }
+  .container    { padding: 0 20px; }
+  .btn          { padding: 16px 24px; }
+}
+
+@keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+.fu  { animation: fadeUp .5s ease both; }
+.d1  { animation-delay: .1s; }
+.d2  { animation-delay: .2s; }
+.d3  { animation-delay: .3s; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════ NAV ══════════════════════════════════════════ -->
+<nav class="topnav">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div>
+        <div class="logo-text">MyFarm</div>
+        <span class="logo-sub">Grupo Aliare</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="#dores" class="nav-a">Desafios</a>
+      <a href="#solucao" class="nav-a">Solução</a>
+      <a href="#como-funciona" class="nav-a">Como funciona</a>
+      <a href="#faq" class="nav-a">Dúvidas</a>
+      <a href="#cta-final" class="btn btn-primary nav-cta">Agende uma Demonstração</a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ══════════════════════════════════════════ DOBRA 1 — HERO ══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+
+      <!-- Esquerda -->
+      <div class="fu">
+        <h1>
+          Pare de perder dinheiro na fazenda por falta de controle.<br/>
+          <span style="color:var(--teal);">O MyFarm coloca você no comando da sua operação.</span>
+        </h1>
+        <p class="hero-subh">
+          Sem registro integrado de custos, produção e financeiro, o lucro real da fazenda fica invisível. O MyFarm reúne financeiro, safra, máquinas e obrigações fiscais em um único sistema, acessível pelo celular com ou sem internet, com suporte especializado no agro do início ao fim.
+        </p>
+        <div class="hero-proof fu d1">
+          <div class="proof-pill"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg> 100% web e mobile</div>
+          <div class="proof-pill"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.56 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg> Funciona sem internet</div>
+          <div class="proof-pill"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg> Suporte especializado no agro</div>
+        </div>
+        <div class="fu d2">
+          <a href="#cta-final" class="btn btn-primary">QUERO CONHECER O MYFARM</a>
+        </div>
+      </div>
+
+      <!-- Direita — visual -->
+      <div class="hero-visual fu d3">
+        <div class="vis-header">
+          <p>Plataforma completa de gestão agrícola</p>
+          <strong>MyFarm — Grupo Aliare</strong>
+        </div>
+        <div class="stats-4">
+          <div class="stat-box"><div class="n">10<span>min</span></div><div class="l">por dia de gestão</div></div>
+          <div class="stat-box"><div class="n">100<span>%</span></div><div class="l">offline no campo</div></div>
+          <div class="stat-box"><div class="n" style="color:#FFD0B5;">∞</div><div class="l">usuários ilimitados</div></div>
+          <div class="stat-box"><div class="n">8<span>+</span></div><div class="l">módulos integrados</div></div>
+        </div>
+        <div class="vis-chips">
+          <span class="vis-chip">Safra</span>
+          <span class="vis-chip">Financeiro</span>
+          <span class="vis-chip">Maquinários</span>
+          <span class="vis-chip">Fiscal</span>
+          <span class="vis-chip">NDVI / Satélite</span>
+          <span class="vis-chip">Open Banking BB</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════ DOBRA 2 — DORES ══════════════════════════════════════════ -->
+<section id="dores" class="section bg-offwhite">
+  <div class="container">
+    <span class="sec-label">Você se identifica com isso?</span>
+    <h2 class="sec-title" style="max-width:700px;">
+      Se você ainda controla sua fazenda no caderno ou na cabeça, está tomando decisões sem dados e isso tem custo.
+    </h2>
+    <p class="sec-intro">
+      Você trabalha duro o ano inteiro. Planta, colhe, entrega. Mas no final da safra, ainda tem dificuldade de responder com precisão: "Quanto custou cada talhão? Qual cultura deu mais margem? O que sobrou de fato?" Se isso é real para você, o problema não é a produção. É a gestão.
+    </p>
+
+    <div class="grid-3">
+      <div class="dor-card">
+        <div class="dor-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <p>Gastos registrados em papel ou planilha e quando precisa de um número exato para negociar ou tomar uma decisão, você liga para o contador e espera.</p>
+      </div>
+      <div class="dor-card">
+        <div class="dor-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg></div>
+        <p>Sem visibilidade do custo real por talhão ou por cultura e sem esse dado, você repete os mesmos erros de uma safra para a outra sem perceber.</p>
+      </div>
+      <div class="dor-card">
+        <div class="dor-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+        <p>Máquina parada por falta de manutenção preventiva e uma colhedora parada no pico da colheita gera prejuízo que nenhum sistema consegue recuperar.</p>
+      </div>
+      <div class="dor-card">
+        <div class="dor-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
+        <p>Já tentou um sistema antes e não funcionou porque era complexo demais, o suporte sumiu ou sua equipe simplesmente não conseguiu adotar.</p>
+      </div>
+      <div class="dor-card">
+        <div class="dor-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/></svg></div>
+        <p>NF-e, Livro Caixa Digital, obrigações estaduais tratadas fora da gestão e cada documento é um processo separado, manual e sujeito a erro.</p>
+      </div>
+      <div class="dor-card">
+        <div class="dor-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <p>A operação depende da sua presença física para funcionar o que limita crescimento, toma seu tempo e dificulta a transferência do negócio para os filhos.</p>
+      </div>
+    </div>
+
+    <!-- Dor extra — visão remota -->
+    <div class="dor-card" style="margin-top:20px;max-width:420px;">
+      <div class="dor-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="1" y1="1" x2="23" y2="23"/><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+      <p>Sem visão remota da lavoura e para saber o que está acontecendo no campo, você precisa ir até lá.</p>
+    </div>
+
+    <!-- VIRADA -->
+    <div class="virada-box">
+      <div>
+        <h3>Esses problemas têm solução. E ela não exige que você vire especialista em tecnologia.</h3>
+        <p>O que você precisa é de um sistema construído para a realidade do campo, simples o suficiente para sua equipe usar e completo o suficiente para você ter controle real da operação.</p>
+      </div>
+      <a href="#solucao" class="btn btn-white-outline" style="flex-shrink:0;">Ver a solução ↓</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════ DOBRA 3 — SOLUÇÃO ══════════════════════════════════════════ -->
+<section id="solucao" class="section bg-white">
+  <div class="container">
+    <span class="sec-label">A solução</span>
+    <h2 class="sec-title" style="max-width:700px;">
+      MyFarm: controle total da fazenda, com a simplicidade que o campo exige.
+    </h2>
+    <p class="sec-intro">
+      O MyFarm não é tecnologia genérica adaptada para o agro. É uma plataforma de gestão construída para a realidade do produtor rural brasileiro. Funciona no celular, funciona sem internet e foi projetada para que você e sua equipe usem com autonomia desde o primeiro mês.
+    </p>
+
+    <!-- Módulos -->
+    <div class="grid-4">
+      <div class="mod-card">
+        <div class="mod-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 0 1 10 10H12V2z"/><path d="M12 12L2 12a10 10 0 0 0 10 10V12z"/></svg></div>
+        <h4>Atividades Agrícolas</h4>
+        <p>Planeje a safra, acompanhe cada atividade no campo, monitore o clima e tenha o histórico completo de cada talhão organizado e acessível.</p>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <h4>Financeiro Completo</h4>
+        <p>Contas a pagar e receber, fluxo de caixa, conciliação bancária e Open Banking com Banco do Brasil integrado, sem lançamento manual.</p>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+        <h4>Suprimentos e Estoque</h4>
+        <p>Controle de compras, gestão de estoque e recebimento de notas integrado ao Sefaz. Fim do retrabalho com NF-e avulsa.</p>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+        <h4>Maquinários</h4>
+        <p>Custos por máquina, manutenção preventiva e corretiva, abastecimentos e hora/máquina. Sua frota sob controle antes de virar prejuízo.</p>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+        <h4>Resultados da Safra</h4>
+        <p>Resultado por hectare, por saca e financeiro. Por cultura e por fazenda. Comparativo entre safras. Você sabe exatamente onde ganhou e onde perdeu.</p>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+        <h4>Agricultura Digital</h4>
+        <p>Imagens de satélite via NDVI e acompanhamento remoto de campo. Monitore a lavoura de onde você estiver, com histórico visual por talhão.</p>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <h4>Compliance Fiscal</h4>
+        <p>NF-e, MDF-e, Livro Caixa Digital do Produtor, SPED Fiscal e obrigações estaduais dentro do sistema, sem depender do contador para cada documento.</p>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <h4>Produção</h4>
+        <p>Gerencie produtividade por cultura, estoques da produção e comercialização. Saiba o que você tem, o que vendeu e o que ainda vai receber.</p>
+      </div>
+    </div>
+
+    <!-- DIFERENCIAIS — fundo cinza escuro, igual ao site -->
+    <div class="dif-box">
+      <span class="sec-label" style="background:rgba(255,255,255,.1);color:#FFD0B5;border-color:rgba(255,255,255,.2);">Diferenciais</span>
+      <h3 style="color:#fff;font-size:1.4rem;font-weight:700;margin:4px 0 4px;">O que torna o MyFarm diferente na prática:</h3>
+      <div class="dif-grid">
+        <div class="dif-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>Funciona 100% offline no campo sem depender de sinal</span></div>
+        <div class="dif-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>Suporte e implantação 100% remotos com especialistas no agro</span></div>
+        <div class="dif-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>Permissionamento por usuário e cada um vê só o que precisa</span></div>
+        <div class="dif-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>Open Banking com Banco do Brasil integrado</span></div>
+        <div class="dif-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>Multi fazendas, culturas e empresas em um só login</span></div>
+        <div class="dif-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>BI e inteligência de mercado embarcados na plataforma</span></div>
+        <div class="dif-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>Desenvolvido exclusivamente para o agronegócio</span></div>
+        <div class="dif-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>Simples o suficiente para o funcionário de campo usar</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════ BENEFÍCIOS (estilo do site) ══════════════════════════════════════════ -->
+<section class="section bg-offwhite">
+  <div class="container">
+    <h2 class="sec-title" style="text-align:center;margin-bottom:48px;">
+      <span class="hl-gray">A solução para transformar</span> <span style="color:var(--orange);">a gestão da sua fazenda</span>
+    </h2>
+    <div class="grid-6">
+      <div class="benefit-item">
+        <div class="benefit-icon-fallback"><svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <h5>Seja mais produtivo</h5>
+        <p>Unifique os dados da sua fazenda, gastando apenas 10 minutos diários de gestão.</p>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon-fallback"><svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></div>
+        <h5>Conte com nosso apoio</h5>
+        <p>O MyFarm possui suporte ilimitado, até 10 horas de treinamento gratuito e uma rede de parceiros credenciados.</p>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon-fallback"><svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <h5>Sem custo com Infra Estrutura</h5>
+        <p>O MyFarm é totalmente online, livrando o seu bolso de investimento com infra estrutura, nossa entrega também é remota em qualquer lugar do Brasil.</p>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon-fallback"><svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+        <h5>Controle os gastos com maquinários</h5>
+        <p>Saiba os gastos com cada máquina, registre as manutenções preventivas e corretivas e abastecimentos.</p>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon-fallback"><svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <h5>Cumpra as obrigações de produtor</h5>
+        <p>Emita a Nota Fiscal Eletrônica do Produtor Rural, MDF-e, faça a escrituração do Livro Caixa Digital do Produtor Rural através do financeiro.</p>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon-fallback"><svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+        <h5>Obtenha informações preciosas</h5>
+        <p>Saiba exatamente quais foram suas receitas, despesas e margem, por hectare, cultura e em sacas. Obtenha um histórico detalhado de cada talhão.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════ DOBRA 4 — COMO FUNCIONA ══════════════════════════════════════════ -->
+<section id="como-funciona" class="section bg-white">
+  <div class="container">
+    <span class="sec-label">Como funciona na prática</span>
+    <h2 class="sec-title" style="max-width:580px;">Do primeiro contato ao controle total da operação.</h2>
+    <p class="sec-intro">
+      A maioria dos sistemas falha porque o produtor é largado depois da assinatura. No MyFarm, o processo de implantação é conduzido por especialistas no agro, do diagnóstico da sua operação até o momento em que você e sua equipe estão usando com autonomia.
+    </p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-n">01</div>
+        <div>
+          <h4>Diagnóstico — <span>Entendemos como sua fazenda funciona hoje</span></h4>
+          <p>Antes de configurar qualquer coisa, mapeamos sua operação: culturas, área, equipe, processos financeiros e obrigações fiscais. O sistema é configurado para a sua realidade e não para uma operação genérica. Cada fazenda tem uma configuração própria.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-n">02</div>
+        <div>
+          <h4>Configuração Remota — <span>O time do MyFarm configura o sistema para você</span></h4>
+          <p>Você não configura sozinho. O time de implantação remota cuida do cadastro das fazendas, talhões, culturas, plano de contas e integrações fiscais. O objetivo é que o sistema esteja pronto para uso antes do seu primeiro acesso, sem retrabalho e sem achismo.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-n">03</div>
+        <div>
+          <h4>Treinamento da Equipe — <span>Você e seus funcionários aprendem a usar com segurança</span></h4>
+          <p>O treinamento é feito remotamente, no ritmo da sua equipe, com foco no que cada pessoa vai usar no dia a dia. O funcionário de campo aprende o que precisa para o campo. Você aprende o que precisa para a gestão. Sem sobrecarga e sem curva de aprendizado longa.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-n">04</div>
+        <div>
+          <h4>Suporte Contínuo — <span>Acompanhamento especializado depois que o sistema está rodando</span></h4>
+          <p>O suporte não some após a implantação. Você tem acesso a um time especializado no agronegócio para dúvidas, ajustes e evolução do uso ao longo do tempo. O objetivo é que o MyFarm evolua junto com a sua operação e não fique parado no que foi configurado no dia um.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════ DOBRA 5 — ALIARE ══════════════════════════════════════════ -->
+<section class="section bg-offwhite">
+  <div class="container">
+    <div class="aliare-row">
+      <div>
+        <span class="sec-label">Quem está por trás do MyFarm</span>
+        <h2 class="sec-title">O agronegócio não é o nosso segmento. É o nosso DNA.</h2>
+        <p class="sec-intro" style="margin-bottom:20px;">
+          O MyFarm faz parte do Grupo Aliare, uma empresa construída dentro do agronegócio, que entende a realidade do produtor rural não por pesquisa, mas por experiência acumulada dentro do próprio setor.
+        </p>
+        <p style="font-size:.95rem;font-weight:300;color:var(--text-body);line-height:1.72;">
+          O Grupo Aliare é formado por unidades de negócio que atendem toda a cadeia do agronegócio, de distribuidores e cooperativas a produtores rurais e pecuaristas. O MyFarm é a solução dedicada ao produtor que está profissionalizando sua gestão: construída com DNA agro, entregue com suporte agro e evoluída com feedback de quem está no campo. Não é tecnologia adaptada para o agro. É tecnologia que nasceu nele.
+        </p>
+      </div>
+      <div class="aliare-box">
+        <div class="ali-head">
+          <div class="ali-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <div>
+            <h4>Grupo Aliare</h4>
+            <p>Empresa com DNA do agronegócio</p>
+          </div>
+        </div>
+        <div class="ali-quote">
+          "Não é tecnologia adaptada para o agro. É tecnologia que nasceu nele."
+        </div>
+        <div class="ali-tags">
+          <span class="ali-tag">Distribuidores</span>
+          <span class="ali-tag">Cooperativas</span>
+          <span class="ali-tag">Produtores rurais</span>
+          <span class="ali-tag">Pecuaristas</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════ DOBRA 6 — O QUE VOCÊ RECEBE ══════════════════════════════════════════ -->
+<section class="section bg-white">
+  <div class="container">
+    <span class="sec-label">O que você recebe</span>
+    <h2 class="sec-title" style="max-width:680px;">Tudo que sua fazenda precisa para operar com controle e clareza em uma única plataforma.</h2>
+    <p class="sec-intro">Com o MyFarm, você não contrata um software. Você contrata controle real da sua operação, do campo ao financeiro, do talhão ao resultado da safra.</p>
+    <div class="check-grid">
+      <div class="check-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><p><strong>Gestão de Atividades Agrícolas</strong> com planejamento de safra, execução, clima e histórico por talhão</p></div>
+      <div class="check-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><p><strong>Controle Financeiro Completo</strong> com fluxo de caixa, contas a pagar e receber, conciliação bancária e Open Banking com Banco do Brasil</p></div>
+      <div class="check-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><p><strong>Suprimentos e Estoque</strong> com compras, estoque de insumos e integração automática com Sefaz</p></div>
+      <div class="check-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><p><strong>Gestão de Maquinários</strong> com custos, manutenção preventiva, abastecimento e hora/máquina</p></div>
+      <div class="check-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><p><strong>Controle de Produção</strong> com produtividade por cultura, estoque de grãos e comercialização</p></div>
+      <div class="check-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><p><strong>Resultados da Safra</strong> com resultado por ha, por saca e financeiro, incluindo comparativo entre safras</p></div>
+      <div class="check-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><p><strong>Agricultura Digital</strong> com imagens de satélite via NDVI e acompanhamento remoto da lavoura</p></div>
+      <div class="check-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><p><strong>Compliance Fiscal</strong> com NF-e, MDF-e, Livro Caixa Digital do Produtor, SPED Fiscal e obrigações estaduais</p></div>
+      <div class="check-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><p><strong>App mobile com funcionamento offline</strong> que funciona mesmo sem internet no campo</p></div>
+      <div class="check-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><p><strong>Implantação e treinamento remotos</strong> com configuração e acompanhamento conduzidos por especialistas no agro</p></div>
+      <div class="check-item" style="grid-column:1/-1;max-width:50%;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><p><strong>Suporte contínuo especializado</strong> com time com conhecimento do agronegócio</p></div>
+    </div>
+    <div style="text-align:center;">
+      <a href="#cta-final" class="btn btn-primary">QUERO CONHECER O MYFARM</a>
+      <p style="font-size:.82rem;color:#888;margin-top:12px;font-weight:300;">Fale com um especialista agro e veja como o MyFarm se encaixa na sua operação.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════ TESTEMUNHOS ══════════════════════════════════════════ -->
+<section class="testi-row">
+  <div class="container">
+    <div class="testi-block">
+      <h2 style="text-align:center;color:#fff;margin-bottom:40px;">
+        <span class="hl-gray">O que falam do</span> MyFarm?
+      </h2>
+      <div class="testi-grid">
+        <div class="testi-half">
+          <img src="https://materiais.myfarm.com.br/hs-fs/hubfs/guilherme%20fazenda%20barracatu.png?width=440&height=440&name=guilherme%20fazenda%20barracatu.png" class="testi-img" alt="Guilherme Augusto Alonso" loading="lazy"/>
+          <div class="testi-txt">
+            <blockquote>"O maior benefício para a gente e para o nosso grupo é o controle financeiro, é a previsibilidade de pagamentos, recebimentos e controle das notas fiscais, controle de estoque."</blockquote>
+            <strong>Guilherme Augusto Alonso</strong>
+            <em>Diretor Comercial da Fazenda Barracatu</em>
+          </div>
+        </div>
+        <div class="testi-half">
+          <div class="testi-txt">
+            <blockquote>"Um sistema e a tecnologia chegaram para ficar e são aliados sim, porque elas vão te dar um direcionamento daquilo que você pode melhorar."</blockquote>
+            <strong>Juliana Chupel Grassmueck</strong>
+            <em>Gerente Administrativa da C4 Agro Participações</em>
+          </div>
+          <img src="https://materiais.myfarm.com.br/hs-fs/hubfs/juliana%20c4%20agro%20participa%C3%A7%C3%B5es.png?width=440&height=440&name=juliana%20c4%20agro%20participa%C3%A7%C3%B5es.png" class="testi-img" alt="Juliana Chupel Grassmueck" loading="lazy"/>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:36px;">
+        <a href="#cta-final" class="btn btn-primary">Agende uma Demonstração</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════ DOBRA 7 — FAQ ══════════════════════════════════════════ -->
+<section id="faq" class="section bg-white">
+  <div class="container">
+    <h2 style="text-align:center;margin-bottom:8px;">
+      <span class="hl-gray">Perguntas Frequentes</span>
+    </h2>
+    <p style="text-align:center;font-size:.95rem;font-weight:300;color:var(--text-muted);margin-bottom:40px;">Dúvidas sobre o MyFarm, se ele está pronto para a sua operação? Acompanhe abaixo nossas Perguntas Frequentes e suas respostas.</p>
+
+    <!-- DOBRA 7 do PDF — Quebra de Objeções -->
+    <div style="margin-bottom:16px;">
+      <span class="sec-label">Dúvidas frequentes</span>
+      <h3 style="font-size:1.5rem;font-weight:700;color:var(--text-dark);margin:8px 0 32px;">Entendemos suas dúvidas. Aqui estão as respostas.</h3>
+      <p style="font-size:.95rem;font-weight:300;color:var(--text-muted);max-width:680px;margin-bottom:32px;">Sabemos que você já ouviu promessas antes. Por isso respondemos com transparência cada dúvida que um produtor como você costuma ter.</p>
+    </div>
+
+    <div class="faq-list">
+      <details class="faq">
+        <summary>"Já tentei sistema antes e não funcionou. Por que dessa vez seria diferente?" <svg xmlns="http://www.w3.org/2000/svg" class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary>
+        <div class="faq-body">A maioria dos sistemas falha por dois motivos: são complexos demais ou abandonam o produtor depois da assinatura. O MyFarm tem um processo estruturado de implantação remota com diagnóstico, configuração, treinamento e suporte contínuo conduzido por um time especializado no agronegócio. Você não começa a usar sozinho. E não fica sozinho depois que começa.</div>
+      </details>
+      <details class="faq">
+        <summary>"Meu funcionário não é de tecnologia. Vai conseguir usar?" <svg xmlns="http://www.w3.org/2000/svg" class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary>
+        <div class="faq-body">O MyFarm tem permissionamento de acesso e cada pessoa vê e opera apenas o que é da sua responsabilidade. O funcionário de campo não precisa entender de financeiro nem de fiscal. O treinamento é feito por perfil de usuário, no ritmo de cada um. Quem sabe usar um celular consegue usar o MyFarm.</div>
+      </details>
+      <details class="faq">
+        <summary>"Não tenho tempo para aprender um sistema novo." <svg xmlns="http://www.w3.org/2000/svg" class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary>
+        <div class="faq-body">Você não aprende sozinho. O time de implantação configura o sistema para a sua operação e treina sua equipe de forma remota. O processo foi desenhado para encaixar na sua rotina e não para criar mais uma tarefa no seu dia.</div>
+      </details>
+      <details class="faq">
+        <summary>"E se eu não tiver internet no campo?" <svg xmlns="http://www.w3.org/2000/svg" class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary>
+        <div class="faq-body">O MyFarm foi construído para a realidade do campo brasileiro. Funciona 100% offline no celular. Quando a conexão retornar, os dados sincronizam automaticamente. Conectividade limitada não é barreira para ter controle da operação.</div>
+      </details>
+      <details class="faq">
+        <summary>"Por que o MyFarm e não outro sistema do mercado?" <svg xmlns="http://www.w3.org/2000/svg" class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary>
+        <div class="faq-body">Porque o MyFarm foi construído por uma empresa com exclusividade no agronegócio. Não é tecnologia genérica adaptada para o campo. O DNA, o suporte e a evolução do produto vêm do próprio agro, de quem entende a realidade de quem planta, colhe e vende. Isso se reflete nas funcionalidades, na linguagem e na forma como o suporte é prestado.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════ DOBRA 8 — CTA FINAL ══════════════════════════════════════════ -->
+<section id="cta-final" class="cta-final-row">
+  <div class="container">
+    <div class="cta-final-inner">
+      <div>
+        <h2 style="color:#fff;">
+          Sua fazenda já produz muito. Está na hora de você saber
+          <span class="hl-orange">exatamente quanto.</span>
+        </h2>
+        <p>Você não precisa virar especialista em tecnologia. Precisa de um sistema simples, com suporte especializado no agro, que coloque você no controle do negócio que você construiu.</p>
+        <a href="https://materiais.myfarm.com.br/software-de-gestao-new" target="_blank" class="btn btn-primary" style="font-size:1rem;padding:20px 36px;">
+          QUERO CONHECER O MYFARM AGORA
+        </a>
+        <p style="font-size:.8rem;color:rgba(255,255,255,.45);margin-top:12px;margin-bottom:0;">Fale com um especialista em gestão agrícola.</p>
+      </div>
+      <div>
+        <img src="https://materiais.myfarm.com.br/hubfs/482127.webp" alt="MyFarm" style="width:100%;border-radius:16px;" loading="lazy"/>
+      </div>
+    </div>
+
+    <p style="text-align:center;font-size:.82rem;color:rgba(255,255,255,.4);padding-bottom:32px;font-weight:300;">
+      MyFarm — Grupo Aliare | O campo sem fronteiras.
+    </p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════ FOOTER ══════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <div class="footer-logo-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <span>MyFarm — Grupo Aliare</span>
+      </div>
+      <p>O campo sem fronteiras</p>
+      <a href="https://www.myfarm.com.br/politica-de-privacidade/" target="_blank">Política de Privacidade</a>
+    </div>
+  </div>
+</footer>
+
+<script>lucide.createIcons();</script>
+</body>
+</html>
