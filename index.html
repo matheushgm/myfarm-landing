@@ -161,9 +161,15 @@ nav.topnav {
   min-height: 70vh;
 }
 .hero-grid {
-  display: grid; grid-template-columns: 1.25fr 1fr;
-  gap: 64px; align-items: center;
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  grid-template-areas: "top form" "bottom form";
+  column-gap: 64px; row-gap: 0;
+  align-items: start;
 }
+.hero-text-top    { grid-area: top; }
+.hero-text-bottom { grid-area: bottom; align-self: start; }
+.hero-form-box    { grid-area: form; align-self: center; }
 .hero h1 {
   font-size: clamp(2.4rem, 4.5vw, 3.5625rem);
   line-height: 1.1; margin-bottom: 20px;
@@ -472,6 +478,11 @@ footer a:hover { color: #fff; }
   .hf-3         { grid-template-columns: 1fr; }
   .hf-2         { grid-template-columns: 1fr; }
   .hero-form-box { padding: 20px 16px; }
+  .hero-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas: "top" "form" "bottom";
+    gap: 24px;
+  }
   .hero h1, .hero-subh, .hero-proof { text-align: center; }
   .hero-proof   { justify-content: center; }
   .hero .hero-list li { justify-content: center; }
@@ -512,16 +523,20 @@ footer a:hover { color: #fff; }
   <div class="container">
     <div class="hero-grid">
 
-      <!-- Esquerda -->
-      <div class="fu">
+      <!-- Esquerda topo: só o h1 -->
+      <div class="hero-text-top fu">
         <h1>
           Pare de perder dinheiro na sua fazenda e tenha controle da sua produção.<br/>
           <span style="color:var(--teal);font-size:0.67em;">O MyFarm coloca você no comando da sua operação.</span>
         </h1>
+      </div>
+
+      <!-- Esquerda baixo: subh + pills + CTA -->
+      <div class="hero-text-bottom fu d1">
         <p class="hero-subh">
           Sem registro integrado de custos, produção e financeiro, o lucro real da fazenda fica invisível. O MyFarm reúne financeiro, safra, máquinas e obrigações fiscais em um único sistema, acessível pelo celular com ou sem internet, com suporte especializado no agro do início ao fim.
         </p>
-        <div class="hero-proof fu d1">
+        <div class="hero-proof">
           <div class="proof-pill"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg> 100% web e mobile</div>
           <div class="proof-pill"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.56 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg> Funciona sem internet</div>
           <div class="proof-pill"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg> Suporte especializado no agro</div>
